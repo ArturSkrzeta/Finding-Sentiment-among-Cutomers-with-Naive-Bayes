@@ -49,7 +49,17 @@
 										<h2>Finding Sentiment among Customers</h2>
 										<h3>Intro</h3>
 										<ul>
-										  <li>...</li>
+										  <li>Naive Bays makes use of probability theorem for classifying uknown data.</li>
+											<li>What makes it so efficient is naive assumption that features are independent to each other.</li>
+											<li>We naively assume that features:
+												<br>
+												- temperature,<br>
+												- humidity,<br>
+												- wind speed,<br>
+												- overcast,<br>
+												are independet to each other and independetly contribute to probability of raining day.
+											</li>
+											<li>Even if there is an obvious raltion between features, we treat each probability of each feature independetly.</li>
 										</ul>
 									</header>
 								</div>
@@ -71,10 +81,61 @@
 							<section id="three">
 								<div class="container">
 									<h3>Demo</h3>
-									<img src="images/lr.JPG">
+									<h5>Methodology:</h5>
 									<ul>
-										<li>...</li>
+										<li>For the project I use multinomial Naive Bayes classifier.</li>
+										<li>I pick multinomial model as I want to perform classification on a set of discrete features.</li>
+										<li>In the project as discrete features we take word counts for text classification </li>
 									</ul>
+
+									<h5>Data set:</h5>
+									<ul>
+										<li>Data input is in JSON format from which I extract review_text and review_rate.</li>
+										<li>Model accepts 30k comments on phones.</li>
+										<li>Each comment has rate assigned form 1 to 5.</li>
+										<li>Based on the rating I do the labeling:
+											- rate 5 and 4 then comment is positive,<br>
+											- rate 3 then comment is neutral,<br>
+											- rate 2 and 1 then comment is negative.
+										</li>
+									</ul>
+
+									<h5>Bag of words:</h5>
+									<ul>
+										<li>Before a model learnign there is need to convert comments into theri numerical representation.</li>
+										<li>First step is preapring bag of words that contains all the unique words from all of the comments.</li>
+										<li>Secendly, we make check for each comment on which word form a bag appears in a comment and how many times.</li>
+										<li>Bag of words example:
+											<br>
+											<code>sentece_1: 'Hello World, it is me!'</code>
+											<br>
+											<code>sentence_2: 'Hello Roman, it is Roman!'</code>
+											<br>
+											<code>bag of words: ['hello', 'is', 'it', 'me', 'roman', 'world']</code>
+											<br>
+											<code>numerical_sentence_1: [1,1,1,1,0,1]</code>
+											<br>
+											- in the last but one position there is 0 as there is no 'roman' in sentece_1
+											<br>
+											<code>numerical_sentence_2: [1,1,1,0,2,0]</code>
+											<br>
+											- there is no 'me' in sentence_2 that is why there is 0 on 4th position<br>
+											- there are two 'roman' words in sentence_2 that is why there is 2 on 5th position<br>
+											- there is no 'world' in sentence_2 that is why there is 0 on last position
+										</li>
+									</ul>
+
+									<h5>Case study:</h5>
+									<ul>
+										<li>Giving the trained model a new set of comments:
+											- 'This products sucks',<br>
+											- 'Colors are nice, don't know which one to choose'.<br>
+											I get results:
+											<br>
+											<code>['Negative' 'Positive']</code>
+										</li>
+									</ul>
+
 								</div>
 							</section>
 
